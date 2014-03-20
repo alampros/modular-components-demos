@@ -1,0 +1,233 @@
+<html>
+  <head>
+    <!------- LIBRARIES ------>
+    <!--<script type="text/javascript" src="lib/handlebars/handlebars.min.js"></script>-->
+    <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/handlebars.js/2.0.0-alpha.2/handlebars.min.js"></script>
+    <!------- /LIBRARIES ------>
+
+
+
+
+    <!------- MODULES ------>
+    <script type="text/javascript" id="js-module-price">
+      (function(){
+        // create the namespace if it's already
+        dt = window.dt || {};
+        dt.model = dt.model || {};
+        /***
+         * Map of currency abbreviations to their symbols.
+         * 
+         * @const
+         * @type Map
+         */
+        dt.model.CURRENCY_SYMBOL_MAP = { 'USD':'$', 'BPS':'£', 'EUR':'€' };
+        /***
+         * Represents a Price.
+         * 
+         * @param {Object} props Properties of the tire. Product properties + 'size'
+         * @constructor
+         */
+        dt.model.Price = function(props) {
+          props = props || {};
+          props = typeof props === 'number' ? {value: props} : props;
+          this.value = props.value || 0;
+          this.unit = props.unit || 'USD';
+        }
+        dt.model.Price.prototype.toString = function() {
+          return dt.model.CURRENCY_SYMBOL_MAP[this.unit] + this.value.toFixed(2);
+        }
+      })();
+    </script>
+
+    <script type="text/javascript" id="js-module-product">
+      (function(){
+        // create the namespace if it's already
+        dt = window.dt || {};
+        dt.model = dt.model || {};
+        /***
+         * Represents a product.
+         * 
+         * @param {Object} props Properties of the tire. Product properties + 'size'
+         * @constructor
+         */
+        dt.model.Product = function(props) {
+          console.log('Product constructor called with options:',props);
+          this.price = new dt.model.Price(props.price);
+          this.description = props.description || 'Untitled product';
+        }
+        dt.model.Product.prototype.toString = function() {
+          return this.description + ': ' + this.price;
+        }
+      })();
+    </script>
+
+    <script type="text/javascript" id="js-module-tire">
+      (function(){
+        dt = window.dt || {};
+        dt.model = dt.model || {};
+        /***
+         * Represents a tire product.
+         * 
+         * @param {Object} props Properties of the tire. Product properties + 'size'
+         * @constructor
+         * @extends dt.model.Product
+         */
+        dt.model.Tire = function(props) {
+          // superclass constructor
+          dt.model.Product.call(this,props);
+          console.log('Tire constructor called with options:',props);
+          this.size = props.size;
+        }
+        //Inherit from dt.model.Product
+        dt.model.Tire.prototype = Object.create( dt.model.Product.prototype );
+      })();
+    </script>
+
+    <!------- /MODULES ------>
+
+
+
+
+
+    <!------- COMPONENTS ------>
+
+    <!-- dt.ui.Tire -->
+    <script id="tmpl-tire" type="text/x-handlebars-template">
+      <div class="dtui-product dtui-product-tire">
+        <div class="dtui-product-description">{{description}}</div>
+        <div class="dtui-tire-size">{{size}}</div>
+        <div class="dtui-price">{{price}}</div>
+      </div>
+    </script>
+    <style type="text/css">
+      .dtui-product {
+        font-family: Helvetica, Arial, sans-serif;
+        border: 1px solid gray;
+        padding: 0.5em 1em;
+      }
+      .dtui-product .dtui-product-description {
+        font-size: 1.5em;
+        font-weight: bold;
+      }
+    </style>
+    <script type="text/javascript" id="js-component-tire">
+      (function(){
+        // create the namespace if it's already
+        dt = window.dt || {};
+        dt.ui = dt.ui || {};
+        /***
+         * Renders a single `dt.model.Tire`.
+         * 
+         * @param {HTMLElement} elem An element to append the rendered component to.
+         * @param {dt.model.Tire} tire A `dt.model.Tire` object.
+         * @constructor
+         */
+        dt.ui.Tire = function(elem,tire) {
+          this.data = tire instanceof dt.model.Tire ? tire : new dt.model.Tire(tire);
+          this.el = elem;
+          this.render();
+        }
+        /***
+         * The handlebars template used to render the component
+         * 
+         * @param {Object} context Data used as context for the template function. Expects a `dt.model.Tire`.
+         * @private
+         */
+        dt.ui.Tire.prototype.template = Handlebars.compile(document.querySelector('#tmpl-tire').innerHTML);
+        /***
+         * Draws the component.
+         * 
+         * @public
+         */
+        dt.ui.Tire.prototype.render = function() {
+          console.log('Rendering tire "%s".',this.data.toString());
+          this.el.insertAdjacentHTML('beforeend', this.template(this.data));
+        }
+      })();
+    </script>
+    <!-- /dt.ui.Tire -->
+
+    <!-- dt.ui.TireGroup -->
+    <script id="tmpl-tire-group" type="text/x-handlebars-template">
+      <div class="dtui-tiregroup"></div>
+    </script>
+    <style type="text/css">
+      .dtui-tiregroup .dtui-product {
+        display: inline-block;
+      }
+    </style>
+    <script type="text/javascript" id="js-component-tiregroup">
+      (function(){
+        // create the namespace if it's already
+        dt = window.dt || {};
+        dt.ui = dt.ui || {};
+        /***
+         * Renders a group of ui.Tire components in a container.
+         * 
+         * @param {HTMLElement} elem An element to append the rendered component to.
+         * @param {[dt.model.Tire]} tires An array of `dt.model.Tire` objects.
+         * @constructor
+         */
+        dt.ui.TireGroup = function(elem,tires) {
+          this.data = tires.map(function(tire) { return tire instanceof dt.model.Tire ? tire : new dt.model.Tire(tire) });
+          this.el = elem;
+          this.render();
+        }
+        /***
+         * The handlebars template used to render the component
+         * 
+         * @param {Object} context Data used as context for the template function.
+         * @private
+         */
+        dt.ui.TireGroup.prototype.template = Handlebars.compile(document.querySelector('#tmpl-tire-group').innerHTML);
+        /***
+         * Draws the component.
+         * 
+         * @public
+         */
+        dt.ui.TireGroup.prototype.render = function() {
+          this.el.TireGroup = this;
+          this.el.insertAdjacentHTML('beforeend', this.template());
+          var container = this.el.querySelector('.dtui-tiregroup');
+          this.data.forEach(function(tire) {
+            new dt.ui.Tire(container,tire);
+          });
+        }
+      })();
+    </script>
+    <!-- /dt.ui.Tire -->
+
+    <!------- /COMPONENTS ------>
+
+
+
+
+    <!------- APP ------>
+    <script type="text/javascript">
+      function init() {
+        var tireGroup = new dt.ui.TireGroup(document.querySelector('#tires'), [
+          new dt.model.Tire({
+            price: {value: 174.2, unit: 'BPS'},
+            description: 'Avid Ascend',
+            size:'245/55R18'
+          }),
+          new dt.model.Tire({
+            price: 180,
+            description: 'Pilot Sport MX',
+            size:'205/55R16'
+          })
+        ]);
+      }
+    </script>
+
+    <script type="text/javascript">
+      if(!document.querySelector) {
+        document.write('Browser not supported. Come back when you support the querySelector api.');
+        throw new Error('Unsupported browser');
+      }
+    </script>
+  </head>
+  <body onload="init()">
+    <div id="tires"></div>
+  </body>
+</html>

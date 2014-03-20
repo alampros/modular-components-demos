@@ -30,6 +30,8 @@ module.exports = function(grunt) {
         cwd: 'src/',
         src: ['tmpl/*.hbs'],
         flatten: true,
+        extDot: 'last',
+        ext: '.js',
         dest: 'bin/js/tmpl/'
       }
     },
