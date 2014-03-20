@@ -1,19 +1,17 @@
-(function(){
-  // create the namespace if it's already
-  dt = window.dt || {};
-  dt.model = dt.model || {};
+define(['dt.model.price'], function(Price) {
   /***
    * Represents a product.
    * 
    * @param {Object} props Properties of the tire. Product properties + 'size'
    * @constructor
    */
-  dt.model.Product = function(props) {
+  var Product = function(props) {
     console.log('Product constructor called with options:',props);
-    this.price = new dt.model.Price(props.price);
+    this.price = new Price(props.price);
     this.description = props.description || 'Untitled product';
   }
-  dt.model.Product.prototype.toString = function() {
+  Product.prototype.toString = function() {
     return this.description + ': ' + this.price;
   }
-})();
+  return Product;
+});

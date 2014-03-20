@@ -1,6 +1,4 @@
-(function(){
-  dt = window.dt || {};
-  dt.model = dt.model || {};
+define(['dt.model.product'], function(Product) {
   /***
    * Represents a tire product.
    * 
@@ -8,12 +6,13 @@
    * @constructor
    * @extends dt.model.Product
    */
-  dt.model.Tire = function(props) {
+  var Tire = function(props) {
     // superclass constructor
-    dt.model.Product.call(this,props);
+    Product.call(this,props);
     console.log('Tire constructor called with options:',props);
     this.size = props.size;
   }
   //Inherit from dt.model.Product
-  dt.model.Tire.prototype = Object.create( dt.model.Product.prototype );
-})();
+  Tire.prototype = Object.create( Product.prototype );
+  return Tire;
+});

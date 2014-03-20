@@ -16,5 +16,8 @@
     "connect-livereload": "^0.3.2",
     "pkginfo": "^0.3.0",
     "tinycolor": "0.0.1"
+  },
+  "devDependencies": {
+    "grunt-contrib-handlebars": "^0.7.0"
   }
 }

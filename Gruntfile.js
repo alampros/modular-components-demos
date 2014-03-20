@@ -2,6 +2,7 @@ module.exports = function(grunt) {
 	grunt.loadNpmTasks('grunt-contrib-clean');
 	grunt.loadNpmTasks('grunt-contrib-copy');
 	grunt.loadNpmTasks('grunt-contrib-watch');
+  grunt.loadNpmTasks('grunt-contrib-handlebars');
 
 
 	grunt.initConfig({
@@ -12,12 +13,27 @@ module.exports = function(grunt) {
 		},
 
     copy: {
-      js: { files: [ {expand: true, cwd: 'src/', src: ['js/dt*.js'], dest: 'bin/'} ] },
+      js: { files: [ {expand: true, cwd: 'src/', src: ['js/*.js'], dest: 'bin/'} ] },
       html: { files: [
         {expand: true, cwd: 'src/', src: ['*.html'], dest: 'bin/' },
         {expand: true, cwd: 'lib/', src: ['**/*'], dest: 'bin/lib/' },
       ]}
     },
+
+    handlebars: {
+      options: {
+        namespace: false,
+        amd: true
+      },
+      files: {
+        expand: true,
+        cwd: 'src/',
+        src: ['tmpl/*.hbs'],
+        flatten: true,
+        dest: 'bin/js/tmpl/'
+      }
+    },
+
     watch: {
       static_assets: {
         files: ['bin/**/*'],
@@ -42,7 +58,7 @@ module.exports = function(grunt) {
 		require('./server');
 	});
 
-  grunt.registerTask('build', ['copy']);
+  grunt.registerTask('build', ['handlebars','copy']);
 	
 	grunt.registerTask('default', [ 'clean', 'build', 'server', 'watch' ]);
 };
