@@ -3,6 +3,7 @@ module.exports = function(grunt) {
 	grunt.loadNpmTasks('grunt-contrib-copy');
 	grunt.loadNpmTasks('grunt-contrib-watch');
   grunt.loadNpmTasks('grunt-contrib-handlebars');
+  grunt.loadNpmTasks('grunt-contrib-less');
 
 
 	grunt.initConfig({
@@ -18,6 +19,12 @@ module.exports = function(grunt) {
         {expand: true, cwd: 'src/', src: ['*.html'], dest: 'bin/' },
         {expand: true, cwd: 'lib/', src: ['**/*'], dest: 'bin/lib/' },
       ]}
+    },
+
+    less: {
+      main: {
+        files: {'bin/css/main.css':'src/less/main.less'}
+      }
     },
 
     handlebars: {
@@ -60,7 +67,7 @@ module.exports = function(grunt) {
 		require('./server');
 	});
 
-  grunt.registerTask('build', ['handlebars','copy']);
+  grunt.registerTask('build', ['handlebars','less','copy']);
 	
 	grunt.registerTask('default', [ 'clean', 'build', 'server', 'watch' ]);
 };
