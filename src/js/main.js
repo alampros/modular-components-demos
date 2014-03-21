@@ -1,7 +1,7 @@
 console.log('main.js loaded');
 require.config({
   paths: {
-    handlebars: '../lib/handlebars/handlebars.runtime'
+    handlebars: '../lib/handlebars/handlebars.runtime.min'
   },
   shim: {
     handlebars: {
@@ -13,35 +13,31 @@ require.config({
     }
   }
 });
+/* Render a single tire */
+/*
 requirejs(['dt.ui.tire'], function(UITire) {
-  console.log('main callback');
   var tire = new UITire(document.querySelector('#tires'),{
     price: {value: 174.2, unit: 'BPS'},
     description: 'Avid Ascend',
     size:'245/55R18'
   });
   console.log(tire);
+});
+*/
 
-  /*
-  var tire = new Tire({
-    price: {value: 174.2, unit: 'BPS'},
-    description: 'Avid Ascend',
-    size:'245/55R18'
-  });
-  console.log(tire);
-
-  var tireGroup = new dt.ui.TireGroup(document.querySelector('#tires'), [
-    new dt.model.Tire({
+/* Render a tire group */
+requirejs(['dt.ui.tiregroup','dt.model.product.tire'], function(UITireGroup,Tire) {
+  var tireGroup = new UITireGroup(document.querySelector('#tires'), [
+    {
       price: {value: 174.2, unit: 'BPS'},
       description: 'Avid Ascend',
       size:'245/55R18'
-    }),
-    new dt.model.Tire({
+    },
+    {
       price: 180,
       description: 'Pilot Sport MX',
       size:'205/55R16'
-    })
+    }
   ]);
-  */
-  
+  console.log(tireGroup);
 });

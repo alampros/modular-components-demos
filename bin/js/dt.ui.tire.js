@@ -7,7 +7,7 @@ define(['tmpl/dt.ui.tire', 'dt.model.product.tire'], function(TireTemplate,TireM
    * @constructor
    */
   var Tire = function(elem,tire) {
-    this.data = (tire instanceof Tire) ? tire : new TireModel(tire);
+    this.data = (tire instanceof TireModel) ? tire : new TireModel(tire);
     this.el = elem;
     this.render();
   }
