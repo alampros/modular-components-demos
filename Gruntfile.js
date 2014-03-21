@@ -4,13 +4,15 @@ module.exports = function(grunt) {
 	grunt.loadNpmTasks('grunt-contrib-watch');
   grunt.loadNpmTasks('grunt-contrib-handlebars');
   grunt.loadNpmTasks('grunt-contrib-less');
+  grunt.loadNpmTasks('grunt-contrib-requirejs');
 
 
 	grunt.initConfig({
 		pkg: grunt.file.readJSON('package.json'),
 		clean: {
 			cruft: ['**/.DS_Store','**/Thumbs.db'],
-      bin: ['bin/*']
+      bin: ['bin/*'],
+      postoptimize: ['bin/optimized/demo1.html','bin/optimized/index.html']
 		},
 
     copy: {
@@ -59,7 +61,24 @@ module.exports = function(grunt) {
         files: ['src/js/*.js'],
         tasks: ['copy:js']
       }
+    },
+
+    requirejs: {
+      compile: {
+        options: {
+          appDir: 'bin/',
+          baseUrl: 'js',
+          dir: 'bin/optimized',
+          mainConfigFile: 'bin/js/main.js',
+          removeCombined: true,
+          optimize: 'none',
+          modules: [{ name: 'main' }]
+        }
+      }
     }
+
+
+
   });
 
 
@@ -67,7 +86,7 @@ module.exports = function(grunt) {
 		require('./server');
 	});
 
-  grunt.registerTask('build', ['handlebars','less','copy']);
+  grunt.registerTask('build', ['handlebars','less','copy','requirejs','clean:postoptimize']);
 	
 	grunt.registerTask('default', [ 'clean', 'build', 'server', 'watch' ]);
 };
