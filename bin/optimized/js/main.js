@@ -37,7 +37,7 @@ define("handlebars", (function (global) {
     };
 }(this)));
 
-define('tmpl/dt.ui.tiregroup',['handlebars'], function(Handlebars) {
+define('tmpl/ui/tire-collection',['handlebars'], function(Handlebars) {
 
 return Handlebars.template(function (Handlebars,depth0,helpers,partials,data) {
   this.compilerInfo = [4,'>= 1.0.0'];
@@ -49,7 +49,7 @@ helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
   })
 
 });
-define('tmpl/dt.ui.tire',['handlebars'], function(Handlebars) {
+define('tmpl/ui/tire',['handlebars'], function(Handlebars) {
 
 return Handlebars.template(function (Handlebars,depth0,helpers,partials,data) {
   this.compilerInfo = [4,'>= 1.0.0'];
@@ -74,13 +74,13 @@ helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
   })
 
 });
-define('dt.model.constants',[],function() {
+define('model/constants',[],function() {
   return {
     CURRENCY_SYMBOL_MAP: { 'USD':'$', 'BPS':'£', 'EUR':'€' }
   }
 });
 
-define('dt.model.price',['dt.model.constants'], function(consts) {
+define('model/price',['model/constants'], function(consts) {
   /***
    * Represents a Price.
    * 
@@ -99,7 +99,7 @@ define('dt.model.price',['dt.model.constants'], function(consts) {
   return Price;
 });
 
-define('dt.model.product',['dt.model.price'], function(Price) {
+define('model/product',['model/price'], function(MPrice) {
   /***
    * Represents a product.
    * 
@@ -108,7 +108,7 @@ define('dt.model.product',['dt.model.price'], function(Price) {
    */
   var Product = function(props) {
     console.log('Product constructor called with options:',props);
-    this.price = new Price(props.price);
+    this.price = new MPrice(props.price);
     this.description = props.description || 'Untitled product';
   }
   Product.prototype.toString = function() {
@@ -117,7 +117,7 @@ define('dt.model.product',['dt.model.price'], function(Price) {
   return Product;
 });
 
-define('dt.model.product.tire',['dt.model.product'], function(Product) {
+define('model/product-tire',['model/product'], function(Product) {
   /***
    * Represents a tire product.
    * 
@@ -136,16 +136,16 @@ define('dt.model.product.tire',['dt.model.product'], function(Product) {
   return Tire;
 });
 
-define('dt.ui.tire',['tmpl/dt.ui.tire', 'dt.model.product.tire'], function(TireTemplate,TireModel) {
+define('ui/tire',['tmpl/ui/tire', 'model/product-tire'], function(TmplTire,MTire) {
   /***
-   * Renders a single `dt.model.Tire`.
+   * Renders a single `model/Tire`.
    * 
    * @param {HTMLElement} elem An element to append the rendered component to.
-   * @param {dt.model.Tire} tire A `dt.model.Tire` object.
+   * @param {model/Tire} tire A `model/Tire` object.
    * @constructor
    */
-  var Tire = function(elem,tire) {
-    this.data = (tire instanceof TireModel) ? tire : new TireModel(tire);
+  var UITire = function(elem,tire) {
+    this.data = (tire instanceof MTire) ? tire : new MTire(tire);
     this.el = elem;
     this.render();
   }
@@ -155,30 +155,30 @@ define('dt.ui.tire',['tmpl/dt.ui.tire', 'dt.model.product.tire'], function(TireT
    * @param {Object} context Data used as context for the template function. Expects a `dt.model.Tire`.
    * @private
    */
-  Tire.prototype.template = TireTemplate;
+  UITire.prototype.template = TmplTire;
   /***
    * Draws the component.
    * 
    * @public
    */
-  Tire.prototype.render = function() {
+  UITire.prototype.render = function() {
     console.log('Rendering tire "%s".',this.data.toString());
     this.el.insertAdjacentHTML('beforeend', this.template(this.data));
   }
 
-  return Tire;
+  return UITire;
 });
 
-define('dt.ui.tiregroup',['tmpl/dt.ui.tiregroup', 'dt.ui.tire','dt.model.product.tire'], function(TireGroupTemplate,UITire,TireModel) {
+define('ui/tire-collection',['tmpl/ui/tire-collection', 'ui/tire','model/product-tire'], function(TmplTireCollection,UITire,MTire) {
   /***
-   * Renders a group of ui.Tire components in a container.
+   * Renders a group of ui/Tire components in a container.
    * 
    * @param {HTMLElement} elem An element to append the rendered component to.
-   * @param {[dt.model.Tire]} tires An array of `dt.model.Tire` objects.
+   * @param {[model/Tire]} tires An array of `model/Tire` objects.
    * @constructor
    */
-  var TireGroup = function(elem,tires) {
-    this.data = tires.map(function(tire) { return (tire instanceof TireModel) ? tire : new TireModel(tire) });
+  var UITireCollection = function(elem,tires) {
+    this.data = tires.map(function(tire) { return (tire instanceof MTire) ? tire : new MTire(tire) });
     this.el = elem;
     this.render();
   }
@@ -188,14 +188,14 @@ define('dt.ui.tiregroup',['tmpl/dt.ui.tiregroup', 'dt.ui.tire','dt.model.product
    * @param {Object} context Data used as context for the template function.
    * @private
    */
-  TireGroup.prototype.template = TireGroupTemplate;
+  UITireCollection.prototype.template = TmplTireCollection;
   /***
    * Draws the component.
    * 
    * @public
    */
-  TireGroup.prototype.render = function() {
-    this.el.TireGroup = this;
+  UITireCollection.prototype.render = function() {
+    this.el.UITireCollection = this;
     this.el.insertAdjacentHTML('beforeend', this.template());
     var container = this.el.querySelector('.dtui-tiregroup');
     this.data.forEach(function(tire) {
@@ -204,7 +204,7 @@ define('dt.ui.tiregroup',['tmpl/dt.ui.tiregroup', 'dt.ui.tire','dt.model.product
   }
 
 
-  return TireGroup;
+  return UITireCollection;
 });
 
 console.log('main.js loaded');
@@ -222,21 +222,11 @@ require.config({
     }
   }
 });
-/* Render a single tire */
-/*
-requirejs(['dt.ui.tire'], function(UITire) {
-  var tire = new UITire(document.querySelector('#tires'),{
-    price: {value: 174.2, unit: 'BPS'},
-    description: 'Avid Ascend',
-    size:'245/55R18'
-  });
-  console.log(tire);
-});
-*/
+
 
 /* Render a tire group */
-requirejs(['dt.ui.tiregroup','dt.model.product.tire'], function(UITireGroup,Tire) {
-  var tireGroup = new UITireGroup(document.querySelector('#tires'), [
+requirejs(['ui/tire-collection','model/product-tire'], function(UITireCollection,MTire) {
+  var searchResults = new UITireCollection(document.querySelector('#tires'), [
     {
       price: {value: 174.2, unit: 'BPS'},
       description: 'Avid Ascend',
@@ -248,7 +238,7 @@ requirejs(['dt.ui.tiregroup','dt.model.product.tire'], function(UITireGroup,Tire
       size:'205/55R16'
     }
   ]);
-  console.log(tireGroup);
+  console.log(searchResults);
 });
 
 define("main", function(){});

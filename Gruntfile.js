@@ -16,7 +16,7 @@ module.exports = function(grunt) {
 		},
 
     copy: {
-      js: { files: [ {expand: true, cwd: 'src/', src: ['js/*.js'], dest: 'bin/'} ] },
+      js: { files: [ {expand: true, cwd: 'src/', src: ['js/**/*.js'], dest: 'bin/'} ] },
       html: { files: [
         {expand: true, cwd: 'src/', src: ['*.html'], dest: 'bin/' },
         {expand: true, cwd: 'lib/', src: ['**/*'], dest: 'bin/lib/' },
@@ -36,9 +36,9 @@ module.exports = function(grunt) {
       },
       files: {
         expand: true,
-        cwd: 'src/',
-        src: ['tmpl/*.hbs'],
-        flatten: true,
+        cwd: 'src/tmpl',
+        src: ['**/*.hbs'],
+        flatten: false,
         extDot: 'last',
         ext: '.js',
         dest: 'bin/js/tmpl/'

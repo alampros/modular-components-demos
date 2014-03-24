@@ -1,13 +1,13 @@
-define(['tmpl/dt.ui.tiregroup', 'dt.ui.tire','dt.model.product.tire'], function(TireGroupTemplate,UITire,TireModel) {
+define(['tmpl/ui/tire-collection', 'ui/tire','model/product-tire'], function(TmplTireCollection,UITire,MTire) {
   /***
-   * Renders a group of ui.Tire components in a container.
+   * Renders a group of ui/Tire components in a container.
    * 
    * @param {HTMLElement} elem An element to append the rendered component to.
-   * @param {[dt.model.Tire]} tires An array of `dt.model.Tire` objects.
+   * @param {[model/Tire]} tires An array of `model/Tire` objects.
    * @constructor
    */
-  var TireGroup = function(elem,tires) {
-    this.data = tires.map(function(tire) { return (tire instanceof TireModel) ? tire : new TireModel(tire) });
+  var UITireCollection = function(elem,tires) {
+    this.data = tires.map(function(tire) { return (tire instanceof MTire) ? tire : new MTire(tire) });
     this.el = elem;
     this.render();
   }
@@ -17,14 +17,14 @@ define(['tmpl/dt.ui.tiregroup', 'dt.ui.tire','dt.model.product.tire'], function(
    * @param {Object} context Data used as context for the template function.
    * @private
    */
-  TireGroup.prototype.template = TireGroupTemplate;
+  UITireCollection.prototype.template = TmplTireCollection;
   /***
    * Draws the component.
    * 
    * @public
    */
-  TireGroup.prototype.render = function() {
-    this.el.TireGroup = this;
+  UITireCollection.prototype.render = function() {
+    this.el.UITireCollection = this;
     this.el.insertAdjacentHTML('beforeend', this.template());
     var container = this.el.querySelector('.dtui-tiregroup');
     this.data.forEach(function(tire) {
@@ -33,5 +33,5 @@ define(['tmpl/dt.ui.tiregroup', 'dt.ui.tire','dt.model.product.tire'], function(
   }
 
 
-  return TireGroup;
+  return UITireCollection;
 });

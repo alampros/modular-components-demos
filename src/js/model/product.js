@@ -1,4 +1,4 @@
-define(['dt.model.price'], function(Price) {
+define(['model/price'], function(MPrice) {
   /***
    * Represents a product.
    * 
@@ -7,7 +7,7 @@ define(['dt.model.price'], function(Price) {
    */
   var Product = function(props) {
     console.log('Product constructor called with options:',props);
-    this.price = new Price(props.price);
+    this.price = new MPrice(props.price);
     this.description = props.description || 'Untitled product';
   }
   Product.prototype.toString = function() {

@@ -1,13 +1,13 @@
-define(['tmpl/dt.ui.tire', 'dt.model.product.tire'], function(TireTemplate,TireModel) {
+define(['tmpl/ui/tire', 'model/product-tire'], function(TmplTire,MTire) {
   /***
-   * Renders a single `dt.model.Tire`.
+   * Renders a single `model/Tire`.
    * 
    * @param {HTMLElement} elem An element to append the rendered component to.
-   * @param {dt.model.Tire} tire A `dt.model.Tire` object.
+   * @param {model/Tire} tire A `model/Tire` object.
    * @constructor
    */
-  var Tire = function(elem,tire) {
-    this.data = (tire instanceof TireModel) ? tire : new TireModel(tire);
+  var UITire = function(elem,tire) {
+    this.data = (tire instanceof MTire) ? tire : new MTire(tire);
     this.el = elem;
     this.render();
   }
@@ -17,16 +17,16 @@ define(['tmpl/dt.ui.tire', 'dt.model.product.tire'], function(TireTemplate,TireM
    * @param {Object} context Data used as context for the template function. Expects a `dt.model.Tire`.
    * @private
    */
-  Tire.prototype.template = TireTemplate;
+  UITire.prototype.template = TmplTire;
   /***
    * Draws the component.
    * 
    * @public
    */
-  Tire.prototype.render = function() {
+  UITire.prototype.render = function() {
     console.log('Rendering tire "%s".',this.data.toString());
     this.el.insertAdjacentHTML('beforeend', this.template(this.data));
   }
 
-  return Tire;
+  return UITire;
 });
