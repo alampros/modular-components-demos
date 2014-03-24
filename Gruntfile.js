@@ -58,7 +58,7 @@ module.exports = function(grunt) {
       },
       js: {
         files: ['src/**/*.js'],
-        tasks: ['copy:js']
+        tasks: ['copy:js','copy:component_library']
       },
       handlebars: {
         files: ['src/component_library/ui/*.hbs'],
