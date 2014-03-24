@@ -12,15 +12,14 @@ module.exports = function(grunt) {
 		clean: {
 			cruft: ['**/.DS_Store','**/Thumbs.db'],
       bin: ['bin/*'],
-      postoptimize: ['bin/optimized/demo1.html','bin/optimized/index.html']
+      postoptimize: ['bin/optimized/*.html','!bin/optimized/demo_requirejs.html'],
+      nonminifiedVendorJS: {expand: true, cwd:'bin', src: ['**/vendor/**/*.js','!**/vendor/**/*.min.js']}
 		},
 
     copy: {
       js: { files: [ {expand: true, cwd: 'src/', src: ['js/**/*.js'], dest: 'bin/'} ] },
-      html: { files: [
-        {expand: true, cwd: 'src/', src: ['*.html'], dest: 'bin/' },
-        {expand: true, cwd: 'lib/', src: ['**/*'], dest: 'bin/lib/' },
-      ]}
+      component_library: { files: [ {expand: true, cwd: 'src/', src: ['component_library/**/*.js'], dest: 'bin/'} ] },
+      html: { files: [ {expand: true, cwd: 'src/', src: ['*.html'], dest: 'bin/' } ] }
     },
 
     less: {
@@ -36,12 +35,12 @@ module.exports = function(grunt) {
       },
       files: {
         expand: true,
-        cwd: 'src/tmpl',
-        src: ['**/*.hbs'],
-        flatten: false,
+        cwd: 'src/component_library/ui',
+        src: ['*.hbs'],
+        flatten: true,
         extDot: 'last',
-        ext: '.js',
-        dest: 'bin/js/tmpl/'
+        ext: '.hbs.js',
+        dest: 'bin/component_library/ui'
       }
     },
 
@@ -58,8 +57,12 @@ module.exports = function(grunt) {
         tasks: ['copy:html']
       },
       js: {
-        files: ['src/js/*.js'],
+        files: ['src/**/*.js'],
         tasks: ['copy:js']
+      },
+      handlebars: {
+        files: ['src/component_library/ui/*.hbs'],
+        tasks: ['handlebars']
       }
     },
 
@@ -67,12 +70,11 @@ module.exports = function(grunt) {
       compile: {
         options: {
           appDir: 'bin/',
-          baseUrl: 'js',
           dir: 'bin/optimized',
           mainConfigFile: 'bin/js/main.js',
           removeCombined: true,
           optimize: 'none',
-          modules: [{ name: 'main' }]
+          modules: [{ name: '../js/main' }]
         }
       }
     }
@@ -86,7 +88,11 @@ module.exports = function(grunt) {
 		require('./server');
 	});
 
-  grunt.registerTask('build', ['handlebars','less','copy','requirejs','clean:postoptimize']);
+  grunt.registerTask('post-build', ['clean:postoptimize','clean:nonminifiedVendorJS']);
+
+  grunt.registerTask('build', ['handlebars','less','copy','requirejs','post-build']);
+  //grunt.registerTask('build', ['handlebars','less','copy']);
 	
+
 	grunt.registerTask('default', [ 'clean', 'build', 'server', 'watch' ]);
 };

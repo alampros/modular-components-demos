@@ -37,7 +37,7 @@ define("handlebars", (function (global) {
     };
 }(this)));
 
-define('tmpl/ui/tire-collection',['handlebars'], function(Handlebars) {
+define('ui/tire-collection.hbs',['handlebars'], function(Handlebars) {
 
 return Handlebars.template(function (Handlebars,depth0,helpers,partials,data) {
   this.compilerInfo = [4,'>= 1.0.0'];
@@ -49,7 +49,7 @@ helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
   })
 
 });
-define('tmpl/ui/tire',['handlebars'], function(Handlebars) {
+define('ui/tire.hbs',['handlebars'], function(Handlebars) {
 
 return Handlebars.template(function (Handlebars,depth0,helpers,partials,data) {
   this.compilerInfo = [4,'>= 1.0.0'];
@@ -136,7 +136,7 @@ define('model/product-tire',['model/product'], function(Product) {
   return Tire;
 });
 
-define('ui/tire',['tmpl/ui/tire', 'model/product-tire'], function(TmplTire,MTire) {
+define('ui/tire',['ui/tire.hbs', 'model/product-tire'], function(TmplTire,MTire) {
   /***
    * Renders a single `model/Tire`.
    * 
@@ -169,7 +169,7 @@ define('ui/tire',['tmpl/ui/tire', 'model/product-tire'], function(TmplTire,MTire
   return UITire;
 });
 
-define('ui/tire-collection',['tmpl/ui/tire-collection', 'ui/tire','model/product-tire'], function(TmplTireCollection,UITire,MTire) {
+define('ui/tire-collection',['ui/tire-collection.hbs', 'ui/tire','model/product-tire'], function(TmplTireCollection,UITire,MTire) {
   /***
    * Renders a group of ui/Tire components in a container.
    * 
@@ -209,8 +209,9 @@ define('ui/tire-collection',['tmpl/ui/tire-collection', 'ui/tire','model/product
 
 console.log('main.js loaded');
 require.config({
+  baseUrl: "component_library",
   paths: {
-    handlebars: '../lib/handlebars/handlebars.runtime.min'
+    handlebars: 'vendor/handlebars/handlebars.runtime.min'
   },
   shim: {
     handlebars: {
@@ -241,5 +242,5 @@ requirejs(['ui/tire-collection','model/product-tire'], function(UITireCollection
   console.log(searchResults);
 });
 
-define("main", function(){});
+define("../js/main", function(){});
 

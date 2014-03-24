@@ -1,4 +1,4 @@
-define(['tmpl/ui/tire-collection', 'ui/tire','model/product-tire'], function(TmplTireCollection,UITire,MTire) {
+define(['ui/tire-collection.hbs', 'ui/tire','model/product-tire'], function(TmplTireCollection,UITire,MTire) {
   /***
    * Renders a group of ui/Tire components in a container.
    * 

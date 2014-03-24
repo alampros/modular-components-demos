@@ -3,15 +3,15 @@ css/main.css
 ----------------
 css/main.css
 
-js/main.js
+component_library/../js/main.js
 ----------------
-lib/handlebars/handlebars.runtime.min.js
-js/tmpl/ui/tire-collection.js
-js/tmpl/ui/tire.js
-js/model/constants.js
-js/model/price.js
-js/model/product.js
-js/model/product-tire.js
-js/ui/tire.js
-js/ui/tire-collection.js
-js/main.js
+component_library/vendor/handlebars/handlebars.runtime.min.js
+component_library/ui/tire-collection.hbs.js
+component_library/ui/tire.hbs.js
+component_library/model/constants.js
+component_library/model/price.js
+component_library/model/product.js
+component_library/model/product-tire.js
+component_library/ui/tire.js
+component_library/ui/tire-collection.js
+component_library/../js/main.js

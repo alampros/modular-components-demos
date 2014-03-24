@@ -1,7 +1,8 @@
 console.log('main.js loaded');
 require.config({
+  baseUrl: "component_library",
   paths: {
-    handlebars: '../lib/handlebars/handlebars.runtime.min'
+    handlebars: 'vendor/handlebars/handlebars.runtime.min'
   },
   shim: {
     handlebars: {
