@@ -67,13 +67,20 @@ module.exports = function(grunt) {
     },
 
     requirejs: {
-      compile: {
+      optimized: {
         options: {
           appDir: 'bin/',
           dir: 'bin/optimized',
           mainConfigFile: 'bin/js/main.js',
           removeCombined: true,
           optimize: 'none',
+          optimize: 'uglify2',
+          uglify2: {
+            mangle: true,
+            compress: {
+              sequences: true,
+            }
+          },
           modules: [{ name: '../js/main' }]
         }
       }
