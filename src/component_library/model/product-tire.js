@@ -9,10 +9,13 @@ define(['model/product'], function(Product) {
   var Tire = function(props) {
     // superclass constructor
     Product.call(this,props);
-    console.log('Tire constructor called with options:',props);
     this.size = props.size;
   }
   //Inherit from dt.model.Product
   Tire.prototype = Object.create( Product.prototype );
+
+  Tire.prototype.toString = function() {
+    return this.description + ' ' + this.size + ' (' + this.price + ')';
+  }
   return Tire;
 });

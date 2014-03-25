@@ -5,6 +5,7 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-contrib-handlebars');
   grunt.loadNpmTasks('grunt-contrib-less');
   grunt.loadNpmTasks('grunt-contrib-requirejs');
+  grunt.loadNpmTasks('grunt-karma');
 
 
 	grunt.initConfig({
@@ -47,6 +48,7 @@ module.exports = function(grunt) {
     watch: {
       static_assets: {
         files: ['bin/**/*'],
+        tasks: ['karma:library:run'],
         options: {
           debounceDelay: 1000,
           livereload: 9000
@@ -84,6 +86,14 @@ module.exports = function(grunt) {
           modules: [{ name: '../js/main' }]
         }
       }
+    },
+
+    karma: {
+      library: {
+        configFile: 'karma.conf.js',
+        background: true,
+        browsers: ['Chrome']
+      }
     }
 
 
@@ -101,5 +111,5 @@ module.exports = function(grunt) {
   //grunt.registerTask('build', ['handlebars','less','copy']);
 	
 
-	grunt.registerTask('default', [ 'clean', 'build', 'server', 'watch' ]);
+	grunt.registerTask('default', [ 'clean', 'build', 'server', 'karma', 'watch' ]);
 };
