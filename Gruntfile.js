@@ -48,7 +48,6 @@ module.exports = function(grunt) {
     watch: {
       static_assets: {
         files: ['bin/**/*'],
-        tasks: ['karma:library:run'],
         options: {
           debounceDelay: 1000,
           livereload: 9000
@@ -60,7 +59,7 @@ module.exports = function(grunt) {
       },
       js: {
         files: ['src/**/*.js'],
-        tasks: ['copy:js','copy:component_library']
+        tasks: ['karma:library:run', 'copy:js','copy:component_library']
       },
       handlebars: {
         files: ['src/component_library/ui/*.hbs'],
@@ -109,7 +108,6 @@ module.exports = function(grunt) {
 
   grunt.registerTask('build', ['handlebars','less','copy','requirejs','post-build']);
   //grunt.registerTask('build', ['handlebars','less','copy']);
-	
 
 	grunt.registerTask('default', [ 'clean', 'build', 'server', 'karma', 'watch' ]);
 };
