@@ -11,7 +11,8 @@ module.exports = function(grunt) {
 	grunt.initConfig({
 		pkg: grunt.file.readJSON('package.json'),
 		clean: {
-			cruft: ['**/.DS_Store','**/Thumbs.db']
+      cruftQuick: ['.DS_Store','public/**/.DS_Store','component_library/**/.DS_Store','./Thumbs.db','public/**/Thumbs.db','component_library/**/Thumbs.db'],
+      cruftAll: ['./**/.DS_Store', './**/Thumbs.db']
 		},
 
     less: {
@@ -76,5 +77,5 @@ module.exports = function(grunt) {
 
   grunt.registerTask('build', ['handlebars','less']);
 
-	grunt.registerTask('default', [ 'clean', 'build', 'server', 'karma', 'watch' ]);
+	grunt.registerTask('default', [ 'clean:cruftQuick', 'build', 'server', 'karma', 'watch' ]);
 };
