@@ -1,4 +1,4 @@
-define(['ui/tire.hbs', 'model/product-tire'], function(TmplTire,MTire) {
+define(['ui/tire/tire.hbs', 'model/product-tire/product-tire'], function(TmplTire,MTire) {
   /***
    * Renders a single `model/Tire`.
    * 

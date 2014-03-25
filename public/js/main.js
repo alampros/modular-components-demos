@@ -17,7 +17,7 @@ require.config({
 
 
 /* Render a tire group */
-requirejs(['ui/tire-collection','model/product-tire'], function(UITireCollection,MTire) {
+requirejs(['ui/tire-collection/tire-collection','model/product-tire/product-tire'], function(UITireCollection,MTire) {
   var searchResults = new UITireCollection(document.querySelector('#tires'), [
     {
       price: {value: 174.2, unit: 'BPS'},

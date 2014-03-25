@@ -1,4 +1,4 @@
-define(['model/constants'], function(consts) {
+define(['model/constants/constants'], function(consts) {
   /***
    * Represents a Price.
    * 
