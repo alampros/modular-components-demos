@@ -12,20 +12,12 @@ module.exports = function(grunt) {
 		pkg: grunt.file.readJSON('package.json'),
 		clean: {
 			cruft: ['**/.DS_Store','**/Thumbs.db'],
-      bin: ['bin/*'],
-      postoptimize: ['bin/optimized/*.html','!bin/optimized/demo_requirejs.html'],
-      nonminifiedVendorJS: {expand: true, cwd:'bin', src: ['**/vendor/**/*.js','!**/vendor/**/*.min.js']}
+      postoptimize: ['bin/optimized/*.html','!bin/optimized/demo_requirejs.html']
 		},
-
-    copy: {
-      js: { files: [ {expand: true, cwd: 'src/', src: ['js/**/*.js'], dest: 'bin/'} ] },
-      component_library: { files: [ {expand: true, cwd: 'src/', src: ['component_library/**/*.js'], dest: 'bin/'} ] },
-      html: { files: [ {expand: true, cwd: 'src/', src: ['*.html'], dest: 'bin/' } ] }
-    },
 
     less: {
       main: {
-        files: {'bin/css/main.css':'src/less/main.less'}
+        files: {'public/css/main.css':'public/less/main.less'}
       }
     },
 
@@ -34,14 +26,14 @@ module.exports = function(grunt) {
         namespace: false,
         amd: true
       },
-      files: {
+      library: {
         expand: true,
-        cwd: 'src/component_library/ui',
-        src: ['*.hbs'],
-        flatten: true,
+        cwd: 'component_library',
+        src: ['**/*.hbs'],
+        flatten: false,
         extDot: 'last',
         ext: '.hbs.js',
-        dest: 'bin/component_library/ui'
+        dest: 'component_library/'
       }
     },
 
