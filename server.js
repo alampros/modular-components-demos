@@ -14,11 +14,8 @@ app.use(require('connect-livereload')({
   port: 9000
 }));
 
-app.use(express.static('bin'));
-
-app.get('/',function(req,res) {
-  res.redirect('/componentization.html');
-});
+app.use(express.static('public'));
+app.use('/component_library', express.static('component_library'));
 
 var server = http.createServer(app);
 server.listen(port);
