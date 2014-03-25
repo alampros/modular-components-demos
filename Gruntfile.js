@@ -11,8 +11,7 @@ module.exports = function(grunt) {
 	grunt.initConfig({
 		pkg: grunt.file.readJSON('package.json'),
 		clean: {
-			cruft: ['**/.DS_Store','**/Thumbs.db'],
-      postoptimize: ['bin/optimized/*.html','!bin/optimized/demo_requirejs.html']
+			cruft: ['**/.DS_Store','**/Thumbs.db']
 		},
 
     less: {
@@ -39,43 +38,24 @@ module.exports = function(grunt) {
 
     watch: {
       static_assets: {
-        files: ['bin/**/*'],
+        files: [
+          'public/**/*',
+          '!public/**/*.less',
+          'component_library/**/*.js',
+          '!component_library/**/*_test.js'
+        ],
         options: {
           debounceDelay: 1000,
           livereload: 9000
         },
       },
-      html: {
-        files: ['src/*.html'],
-        tasks: ['copy:html']
-      },
-      js: {
-        files: ['src/**/*.js'],
-        tasks: ['karma:library:run', 'copy:js','copy:component_library']
+      tests: {
+        files: ['component_library/**/*.js'],
+        tasks: ['karma:library:run']
       },
       handlebars: {
-        files: ['src/component_library/ui/*.hbs'],
+        files: ['component_library/**/*.hbs'],
         tasks: ['handlebars']
-      }
-    },
-
-    requirejs: {
-      optimized: {
-        options: {
-          appDir: 'bin/',
-          dir: 'bin/optimized',
-          mainConfigFile: 'bin/js/main.js',
-          removeCombined: true,
-          optimize: 'none',
-          optimize: 'uglify2',
-          uglify2: {
-            mangle: true,
-            compress: {
-              sequences: true,
-            }
-          },
-          modules: [{ name: '../js/main' }]
-        }
       }
     },
 
@@ -87,8 +67,6 @@ module.exports = function(grunt) {
       }
     }
 
-
-
   });
 
 
@@ -96,10 +74,7 @@ module.exports = function(grunt) {
 		require('./server');
 	});
 
-  grunt.registerTask('post-build', ['clean:postoptimize','clean:nonminifiedVendorJS']);
-
-  grunt.registerTask('build', ['handlebars','less','copy','requirejs','post-build']);
-  //grunt.registerTask('build', ['handlebars','less','copy']);
+  grunt.registerTask('build', ['handlebars','less']);
 
 	grunt.registerTask('default', [ 'clean', 'build', 'server', 'karma', 'watch' ]);
 };
