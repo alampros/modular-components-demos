@@ -15,7 +15,6 @@ app.use(require('connect-livereload')({
 }));
 
 app.use(express.static('public'));
-app.use('/component_library', express.static('component_library'));
 
 var server = http.createServer(app);
 server.listen(port);

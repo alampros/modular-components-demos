@@ -1,4 +1,4 @@
-define(['model/product-tire','model/price'], function(Tire,Price) {
+define(['model/product-tire/product-tire','model/price/price'], function(Tire,Price) {
   var mocks = [
     {
       price: {value: 174.2, unit: 'BPS'},

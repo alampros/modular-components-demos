@@ -11,8 +11,7 @@ module.exports = function(grunt) {
 	grunt.initConfig({
 		pkg: grunt.file.readJSON('package.json'),
 		clean: {
-      cruftQuick: ['.DS_Store','public/**/.DS_Store','component_library/**/.DS_Store','./Thumbs.db','public/**/Thumbs.db','component_library/**/Thumbs.db'],
-      cruftAll: ['./**/.DS_Store', './**/Thumbs.db']
+      cruft: ['.DS_Store','public/**/.DS_Store','./Thumbs.db','public/**/Thumbs.db'],
 		},
 
     less: {
@@ -28,12 +27,12 @@ module.exports = function(grunt) {
       },
       library: {
         expand: true,
-        cwd: 'component_library',
+        cwd: 'public/component_library',
         src: ['**/*.hbs'],
         flatten: false,
         extDot: 'last',
         ext: '.hbs.js',
-        dest: 'component_library/'
+        dest: 'public/component_library/'
       }
     },
 
@@ -42,8 +41,7 @@ module.exports = function(grunt) {
         files: [
           'public/**/*',
           '!public/**/*.less',
-          'component_library/**/*.js',
-          '!component_library/**/*_test.js'
+          '!public/component_library/**/*_test.js'
         ],
         options: {
           debounceDelay: 1000,
@@ -51,11 +49,11 @@ module.exports = function(grunt) {
         },
       },
       tests: {
-        files: ['component_library/**/*.js'],
+        files: ['public/component_library/**/*.js'],
         tasks: ['karma:library:run']
       },
       handlebars: {
-        files: ['component_library/**/*.hbs'],
+        files: ['public/component_library/**/*.hbs'],
         tasks: ['handlebars']
       }
     },
@@ -64,7 +62,18 @@ module.exports = function(grunt) {
       library: {
         configFile: 'karma.conf.js',
         background: true,
-        browsers: ['Chrome']
+        browsers: ['Chrome','Firefox','PhantomJS']
+      }
+    },
+
+    requirejs: {
+      mainjs: {
+        options: {
+          baseUrl: "public/component_library/",
+          mainConfigFile: 'public/js/main.js',
+          name: "../js/main",
+          out: "public/js/main-optimized.js"
+        }
       }
     }
 
@@ -75,7 +84,8 @@ module.exports = function(grunt) {
 		require('./server');
 	});
 
-  grunt.registerTask('build', ['handlebars','less']);
+  grunt.registerTask('optimize', ['requirejs']);
+  grunt.registerTask('build', ['handlebars','less','optimize']);
 
-	grunt.registerTask('default', [ 'clean:cruftQuick', 'build', 'server', 'karma', 'watch' ]);
+	grunt.registerTask('default', [ 'clean', 'build', 'server', 'karma', 'watch' ]);
 };

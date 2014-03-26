@@ -3,7 +3,7 @@
   "name": "componentization",
   "title": "Web Component Delivery Strategies",
   "description": "Examination of the available strategies for delivering functionally discreet web components accross multiple platforms.",
-  "version": "0.1.0",
+  "version": "0.1.3",
   "private": true,
   "repository": "git@custtech.dealertire.com:componentization",
   "dependencies": {
@@ -20,14 +20,14 @@
     "grunt-contrib-clean": "~0.5.0",
     "grunt-contrib-handlebars": "^0.7.0",
     "grunt-contrib-requirejs": "^0.4.3",
-    "requirejs": "^2.1.11",
+    "grunt-karma": "^0.8.2",
     "karma": "^0.12.1",
     "karma-cli": "0.0.4",
     "karma-jasmine": "^0.1.5",
     "karma-requirejs": "^0.2.1",
     "karma-chrome-launcher": "^0.1.2",
     "karma-firefox-launcher": "^0.1.3",
-    "karma-mocha-reporter": "^0.2.2",
-    "grunt-karma": "^0.8.2"
+    "karma-phantomjs-launcher": "^0.1.2",
+    "karma-mocha-reporter": "^0.2.2"
   }
 }
