@@ -17,6 +17,8 @@ require.config({
   baseUrl: '/base',
 
   paths: {
+    json: 'vendor/requirejs/json',
+    text: 'vendor/requirejs/text',
     handlebars: 'vendor/handlebars/handlebars.runtime.min'
   },
   shim: {
