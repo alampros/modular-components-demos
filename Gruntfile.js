@@ -62,7 +62,7 @@ module.exports = function(grunt) {
       library: {
         configFile: 'karma.conf.js',
         background: true,
-        browsers: ['Chrome','Firefox','PhantomJS']
+        browsers: ['Chrome']
       }
     },
 
