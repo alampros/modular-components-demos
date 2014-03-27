@@ -1,43 +1,40 @@
 define(['model/tireSize/tireSize','json!service/tireSizeCatalog/data.json'], function(MTireSize,mockdata) {
   var widthFilterRE = /^\d{3}$/
+  var ratioFilterRE = /^\d{2,3}$/
   var TireSizeCatalog = function() {
-    var self = this;
-    var data = mockdata;
-    self._raw = data;
-    self.widths = [];
-    self.sizes = [];
-    for (var width in data) {
-      if(data.hasOwnProperty(width)) {
-        //model.tireSize doesn't handle high floatation or LT tires for this demo.
-        if(width.match(widthFilterRE)) {
-          self.widths.push(width);
-          for(var ratio in data[width]) {
-            if(data[width].hasOwnProperty(ratio)) {
-              for(var diameter in data[width][ratio]) {
-                if(data[width][ratio].hasOwnProperty(diameter)) {
-                  self.sizes.push(new MTireSize([width,ratio,diameter]));
-                }
-              }
-            }
-          }
-        }
-      }
-    }
+    this._raw = mockdata;
   }
-  TireSizeCatalog.prototype.search = function(width,ratio) {
+  TireSizeCatalog.prototype.search = function(width,ratio,diameter) {
+    if(arguments.length === 0) {
+      return this.getWidths.call(this);
+    }
     if(arguments.length === 1) {
       return this.getRatios.call(this,width);
-    } else if(arguments.length === 2) {
+    }
+    if(arguments.length === 2) {
       return this.getDiameters.call(this,width,ratio);
     }
+    if(arguments.length === 3) {
+      return this.getPerformanceDescriptions.call(this,width,ratio,diameter);
+    }
     //throw new Error('Not implemented');
+  }
+  TireSizeCatalog.prototype.getWidths = function() {
+    var self = this;
+    var widths = [];
+    for (var width in self._raw) {
+      if(self._raw.hasOwnProperty(width) && width.match(widthFilterRE) ) {
+        widths.push(width);
+      }
+    }
+    return widths;
   }
   TireSizeCatalog.prototype.getRatios = function(width) {
     var self = this;
     var ratios = [];
     var w = self._raw[width];
     for (var ratio in w) {
-      if(w.hasOwnProperty(ratio)) {
+      if(w.hasOwnProperty(ratio) && ratio.match(ratioFilterRE) ) {
         ratios.push(ratio);
       }
     }
@@ -55,5 +52,9 @@ define(['model/tireSize/tireSize','json!service/tireSizeCatalog/data.json'], fun
     }
     return diameters;
   }
-  return TireSizeCatalog;
+  TireSizeCatalog.prototype.getPerformanceDescriptions = function(width,ratio,diameter) {
+    if(!width || !ratio || !diameter) throw new Error('Invalid input');
+    return this._raw[width][ratio][diameter];
+  }
+  return new TireSizeCatalog();
 });

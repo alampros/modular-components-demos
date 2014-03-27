@@ -85,7 +85,7 @@ module.exports = function(grunt) {
 	});
 
   grunt.registerTask('optimize', ['requirejs']);
-  grunt.registerTask('build', ['handlebars','less','optimize']);
+  grunt.registerTask('build', ['handlebars','less', 'optimize']);
 
 	grunt.registerTask('default', [ 'clean', 'build', 'server', 'karma', 'watch' ]);
 };

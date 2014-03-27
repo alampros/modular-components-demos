@@ -18,8 +18,8 @@ module.exports = function(config) {
       {pattern: 'model/**/*.js', included: false},
       {pattern: 'service/**/*.js', included: false},
       {pattern: 'service/**/*.json', included: false},
-      {pattern: 'vendor/requirejs/json.js', included: false},
-      {pattern: 'vendor/requirejs/text.js', included: false},
+      {pattern: 'ui/**/*.js', included: false},
+      {pattern: 'vendor/**/*.js', included: false},
       'test-main.js'
     ],
 

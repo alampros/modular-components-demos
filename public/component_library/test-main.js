@@ -19,6 +19,7 @@ require.config({
   paths: {
     json: 'vendor/requirejs/json',
     text: 'vendor/requirejs/text',
+    jquery: 'vendor/jquery/jquery.min',
     handlebars: 'vendor/handlebars/handlebars.runtime.min'
   },
   shim: {

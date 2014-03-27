@@ -1,0 +1,11 @@
+<div class="dt-ui-searchbytiresize">
+	<fieldset>
+    {{#each sizeComponents}}
+    <div class="control-group" data-dt-ui-size-component="{{attribute}}">
+      <label>{{attribute}}</label>
+      <div class="control" data-dt_ui_input-select-disabled="true" data-dt_ui_input-select-tabIndex="{{@index}}"{{#if @first}}data-dt_ui_input-select-autofocus="true"{{/if}}></div>
+		</div>
+    {{/each}}
+	</fieldset>
+</div>
+
