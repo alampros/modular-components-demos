@@ -1,4 +1,4 @@
-define(['model/product/product'], function(Product) {
+define(['m!product'], function(Product) {
   /***
    * Represents a tire product.
    * 

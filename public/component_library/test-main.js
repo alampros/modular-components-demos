@@ -17,6 +17,10 @@ require.config({
   baseUrl: '/base',
 
   paths: {
+    dt_path: 'vendor/requirejs/dt_path',
+    m: 'vendor/requirejs/dt_shortloader_model',
+    s: 'vendor/requirejs/dt_shortloader_service',
+    u: 'vendor/requirejs/dt_shortloader_ui',
     json: 'vendor/requirejs/json',
     text: 'vendor/requirejs/text',
     jquery: 'vendor/jquery/jquery.min',

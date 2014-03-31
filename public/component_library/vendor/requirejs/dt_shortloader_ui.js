@@ -6,9 +6,10 @@
 define(['dt_path'],function(Path){
   return {
     load : function(name, req, onLoad, config) {
-      var p = Path.parse('model/'+name);
+      var p = Path.parse('ui/'+name);
       req([p.toString()], onLoad);
     }
   };
 });
+
 

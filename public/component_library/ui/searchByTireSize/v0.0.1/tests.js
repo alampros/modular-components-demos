@@ -1,4 +1,4 @@
-define(['jquery','ui/searchByTireSize/searchByTireSize'], function($,UISearchByTireSize) {
+define(['jquery','u!searchByTireSize'], function($,UISearchByTireSize) {
   var $el = $('body').append('<div class="ui-input-select-test"></div>');
 
   describe('InputSelect', function() {

@@ -2,9 +2,11 @@ console.log('main.js loaded');
 require.config({
   baseUrl: "component_library",
   paths: {
-    json: 'vendor/requirejs/json',
+    dt_path: 'vendor/requirejs/dt_path',
     m: 'vendor/requirejs/dt_shortloader_model',
     s: 'vendor/requirejs/dt_shortloader_service',
+    u: 'vendor/requirejs/dt_shortloader_ui',
+    json: 'vendor/requirejs/json',
     text: 'vendor/requirejs/text',
     handlebars: 'vendor/handlebars/handlebars.runtime.min',
     jquery: 'vendor/jquery/jquery.min'
@@ -21,8 +23,7 @@ require.config({
 });
 
 /* Render a tire group */
-/*
-requirejs(['ui/tire-collection/tire-collection','model/product-tire/product-tire'], function(UITireCollection,MTire) {
+requirejs(['u!tire-collection','m!product-tire'], function(UITireCollection,MTire) {
   var searchResults = new UITireCollection(document.querySelector('#tires'), [
     {
       price: {value: 174.2, unit: 'BPS'},
@@ -37,21 +38,29 @@ requirejs(['ui/tire-collection/tire-collection','model/product-tire/product-tire
   ]);
   console.log(searchResults);
 });
+/*
 */
 
 
 /*
 // Resource shorthand using the dt_shortloader_model plugin
-requirejs(['m!product'], function(Tire) {
+requirejs(['m!product-tire'], function(Tire) {
   console.log('TIRE LOADED!',Tire);
 })
-*/
-
-requirejs(['jquery','ui/searchByTireSize/searchByTireSize', 'service/tireSizeCatalog/tireSizeCatalog'], function($,UISearchByTireSize, STireSizeCatalog) {
-  var testElem = $('<div class="test-elem" />').appendTo('body');
-  var search = testElem.dt_ui_SearchByTireSize().data('dt_ui_SearchByTireSize');
-  //console.log(search.config);
-
-  //var inp = new UISearchByTireSize(testElem.get(0));
+requirejs(['m!product@v0.0.1'], function(Tire) {
+  console.log('TIRE LOADED!',Tire);
+})
+requirejs(['m!product@v0.0.2'], function(Tire) {
+  console.log('TIRE LOADED!',Tire);
+})
+requirejs(['m!product/file.js@v0.0.2'], function(Tire) {
+  console.log('TIRE LOADED!',Tire);
+})
+requirejs(['m!product/file'], function(Tire) {
+  console.log('TIRE LOADED!',Tire);
+})
+requirejs(['ui!input-select'], function(sbts) {
+  console.log('SBTS LOADED',sbts);
 });
+*/
 

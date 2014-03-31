@@ -1,4 +1,4 @@
-define(['model/tireSize/tireSize'], function(TireSize) {
+define(['m!tireSize'], function(TireSize) {
   describe('Tire size instantiated from the string "2055516"', function() {
     var size = new TireSize('2055516');
 

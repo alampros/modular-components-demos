@@ -1,4 +1,4 @@
-define(['jquery','ui/input-select/input-select'], function($,UIInputSelect) {
+define(['jquery','u!input-select'], function($,UIInputSelect) {
   describe('InputSelect created from class object', function() {
     var $el,inp;
     beforeEach(function() {

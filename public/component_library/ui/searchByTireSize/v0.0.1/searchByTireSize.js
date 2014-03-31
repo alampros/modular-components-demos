@@ -1,9 +1,9 @@
 define([
   'jquery',
-  'ui/searchByTireSize/searchByTireSize.hbs',
-  'service/tireSizeCatalog/tireSizeCatalog',
-  'model/tireSize/tireSize',
-  'ui/input-select/input-select'
+  'u!searchByTireSize/searchByTireSize.hbs',
+  's!tireSizeCatalog',
+  'm!tireSize',
+  'u!input-select'
 ], function(
   $,
   TmplSearchByTireSize,

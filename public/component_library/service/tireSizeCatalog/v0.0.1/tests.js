@@ -1,4 +1,4 @@
-define(['service/tireSizeCatalog/tireSizeCatalog', 'model/tireSize/tireSize'], function(TireSizeCatalog, MTireSize) {
+define(['s!tireSizeCatalog', 'm!tireSize'], function(TireSizeCatalog, MTireSize) {
   describe('Tire size catalog', function() {
     it('should have a getWidths method', function() {
       expect(TireSizeCatalog.getWidths).toBeDefined();
@@ -46,7 +46,6 @@ define(['service/tireSizeCatalog/tireSizeCatalog', 'model/tireSize/tireSize'], f
     });
     it('should return an array of performance descriptions if passed width and ratio and diameter', function() {
       var perfs = TireSizeCatalog.search('205','55','16');
-      console.log(perfs);
       expect((perfs instanceof Array)).toBe(true);
       expect(perfs.length).toBeGreaterThan(0);
       expect(perfs[0]).toMatch(/(\d{2}|-)[A-Z]/);

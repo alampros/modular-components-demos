@@ -1,4 +1,4 @@
-define(['model/price/price'], function(MPrice) {
+define(['m!price'], function(MPrice) {
   /***
    * Represents a product.
    * 

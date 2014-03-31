@@ -1,4 +1,4 @@
-define(['jquery','ui/input-select/input-select.hbs'], function($,TmplInputSelect) {
+define(['jquery','u!input-select/input-select.hbs'], function($,TmplInputSelect) {
   /***
    * Renders a basic selectbox element.
    * 

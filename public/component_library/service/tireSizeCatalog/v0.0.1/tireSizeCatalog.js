@@ -1,4 +1,4 @@
-define(['model/tireSize/tireSize','json!service/tireSizeCatalog/data.json'], function(MTireSize,mockdata) {
+define(['m!tireSize','json!service/tireSizeCatalog/LATEST/data.json'], function(MTireSize,mockdata) {
   var widthFilterRE = /^\d{3}$/
   var ratioFilterRE = /^\d{2,3}$/
   var TireSizeCatalog = function() {
