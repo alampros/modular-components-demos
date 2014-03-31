@@ -3,6 +3,8 @@ require.config({
   baseUrl: "component_library",
   paths: {
     json: 'vendor/requirejs/json',
+    m: 'vendor/requirejs/dt_shortloader_model',
+    s: 'vendor/requirejs/dt_shortloader_service',
     text: 'vendor/requirejs/text',
     handlebars: 'vendor/handlebars/handlebars.runtime.min',
     jquery: 'vendor/jquery/jquery.min'
@@ -36,6 +38,15 @@ requirejs(['ui/tire-collection/tire-collection','model/product-tire/product-tire
   console.log(searchResults);
 });
 */
+
+
+/*
+// Resource shorthand using the dt_shortloader_model plugin
+requirejs(['m!product'], function(Tire) {
+  console.log('TIRE LOADED!',Tire);
+})
+*/
+
 requirejs(['jquery','ui/searchByTireSize/searchByTireSize', 'service/tireSizeCatalog/tireSizeCatalog'], function($,UISearchByTireSize, STireSizeCatalog) {
   var testElem = $('<div class="test-elem" />').appendTo('body');
   var search = testElem.dt_ui_SearchByTireSize().data('dt_ui_SearchByTireSize');
