@@ -3,9 +3,12 @@
   "name": "componentization",
   "title": "Web Component Delivery Strategies",
   "description": "Examination of the available strategies for delivering functionally discreet web components accross multiple platforms.",
-  "version": "0.1.3",
+  "version": "0.1.4",
   "private": true,
   "repository": "git@custtech.dealertire.com:componentization",
+  "scripts": {
+    "test": "grunt test"
+  },
   "dependencies": {
     "express": "^3.5.0",
     "connect-livereload": "^0.3.2",

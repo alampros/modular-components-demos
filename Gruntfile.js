@@ -50,7 +50,7 @@ module.exports = function(grunt) {
       },
       tests: {
         files: ['public/component_library/**/*.js'],
-        tasks: ['karma:library:run']
+        tasks: ['karma:background:run']
       },
       handlebars: {
         files: ['public/component_library/**/*.hbs'],
@@ -59,7 +59,12 @@ module.exports = function(grunt) {
     },
 
     karma: {
-      library: {
+      singlerun: {
+        configFile: 'karma.conf.js',
+        singleRun: true,
+        browsers: ['Chrome']
+      },
+      background: {
         configFile: 'karma.conf.js',
         background: true,
         browsers: ['Chrome']
@@ -84,6 +89,7 @@ module.exports = function(grunt) {
 		require('./server');
 	});
 
+  grunt.registerTask('test', ['karma:singlerun']);
   grunt.registerTask('optimize', ['requirejs']);
   grunt.registerTask('build', ['handlebars','less']);
 
