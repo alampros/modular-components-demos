@@ -1,6 +1,16 @@
 console.log('main.js loaded');
+
+var __deps = [];
+if(!Object.create) {
+  __deps.push('util/polyfill_object');
+}
+if(!document.querySelectorAll || !document.querySelector) {
+  __deps.push('util/polyfill_querySelector');
+}
+
 require.config({
   baseUrl: "component_library",
+  deps: __deps,
   paths: {
     dt_path: 'vendor/requirejs/dt_path',
     m: 'vendor/requirejs/dt_shortloader_model',
