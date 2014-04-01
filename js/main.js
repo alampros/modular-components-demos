@@ -1,7 +1,15 @@
 console.log('main.js loaded');
 require.config({
+  baseUrl: "component_library",
   paths: {
-    handlebars: '../lib/handlebars/handlebars.runtime.min'
+    dt_path: 'vendor/requirejs/dt_path',
+    m: 'vendor/requirejs/dt_shortloader_model',
+    s: 'vendor/requirejs/dt_shortloader_service',
+    u: 'vendor/requirejs/dt_shortloader_ui',
+    json: 'vendor/requirejs/json',
+    text: 'vendor/requirejs/text',
+    handlebars: 'vendor/handlebars/handlebars.runtime.min',
+    jquery: 'vendor/jquery/jquery.min'
   },
   shim: {
     handlebars: {
@@ -13,21 +21,10 @@ require.config({
     }
   }
 });
-/* Render a single tire */
-/*
-requirejs(['dt.ui.tire'], function(UITire) {
-  var tire = new UITire(document.querySelector('#tires'),{
-    price: {value: 174.2, unit: 'BPS'},
-    description: 'Avid Ascend',
-    size:'245/55R18'
-  });
-  console.log(tire);
-});
-*/
 
 /* Render a tire group */
-requirejs(['dt.ui.tiregroup','dt.model.product.tire'], function(UITireGroup,Tire) {
-  var tireGroup = new UITireGroup(document.querySelector('#tires'), [
+requirejs(['u!tire-collection','m!product-tire'], function(UITireCollection,MTire) {
+  var searchResults = new UITireCollection(document.querySelector('#tires'), [
     {
       price: {value: 174.2, unit: 'BPS'},
       description: 'Avid Ascend',
@@ -39,5 +36,31 @@ requirejs(['dt.ui.tiregroup','dt.model.product.tire'], function(UITireGroup,Tire
       size:'205/55R16'
     }
   ]);
-  console.log(tireGroup);
+  console.log(searchResults);
 });
+/*
+*/
+
+
+/*
+// Resource shorthand using the dt_shortloader_model plugin
+requirejs(['m!product-tire'], function(Tire) {
+  console.log('TIRE LOADED!',Tire);
+})
+requirejs(['m!product@v0.0.1'], function(Tire) {
+  console.log('TIRE LOADED!',Tire);
+})
+requirejs(['m!product@v0.0.2'], function(Tire) {
+  console.log('TIRE LOADED!',Tire);
+})
+requirejs(['m!product/file.js@v0.0.2'], function(Tire) {
+  console.log('TIRE LOADED!',Tire);
+})
+requirejs(['m!product/file'], function(Tire) {
+  console.log('TIRE LOADED!',Tire);
+})
+requirejs(['ui!input-select'], function(sbts) {
+  console.log('SBTS LOADED',sbts);
+});
+*/
+

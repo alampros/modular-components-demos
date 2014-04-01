@@ -1,0 +1,6 @@
+<select class="dt-ui-input-select" {{#if disabled}}disabled="disabled" {{/if}}{{#if tabIndex}}tabIndex="{{tabIndex}}"{{/if}}{{#if autofocus}}autofocus{{/if}}>
+  <option selected>-</option>
+  {{#each options}}
+  <option value="{{this}}">{{this}}</option>
+  {{/each}}
+</select>
