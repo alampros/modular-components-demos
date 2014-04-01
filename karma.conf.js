@@ -19,6 +19,7 @@ module.exports = function(config) {
       {pattern: 'service/**/*.js', included: false},
       {pattern: 'service/**/*.json', included: false},
       {pattern: 'ui/**/*.js', included: false},
+      {pattern: 'util/**/*.js', included: false},
       {pattern: 'vendor/**/*.js', included: false},
       'tests.js',
       'test-main.js'
