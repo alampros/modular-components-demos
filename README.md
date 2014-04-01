@@ -13,4 +13,6 @@ See the [demos here](http://alampros.github.io/modular-components-demos).
 
 ## Default Grunt task
 
-The default grunt task will compile any needed assets, start a local server, run tests, and watch for changes. Livereload is enabled and running on port 9000.
+The default grunt task will compile any needed assets, start a local server,
+run tests, and watch for changes. Livereload is enabled and running on port
+9000.
